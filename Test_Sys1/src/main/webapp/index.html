@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OA主页</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<h1>欢迎来到OA系统：</h1>
+<div id="dv1">
+    <h1 id="h1">{{username}}</h1>
+    <h2>{{phone}}</h2>
+    <h3><a href="javascript:loginout();">退出</a> </h3>
+</div>
+<script type="application/javascript">
+    $(function () {
+        var token=getCK("userauth");
+        if(token.length==0){
+            //没有令牌
+            //alert("没有令牌");
+            location.href="login.html";
+        }else{
+            console.log(token);
+            $.ajax({
+                url:"http://localhost:8081/usercheck.do",
+                method:"get",
+                xhrFields: {withCredentials: true},
+                success:function (obj) {
+                    console.log("数据："+obj);
+                    if(obj.code==0){
+                        $("#h1").html(obj.data.username)
+                        // app1.username=obj.data.username;
+                        // app1.phone=obj.data.phone;
+                    }else{
+                        alert("获取登录用户："+obj.msg);
+                    }
+                }
+            })
+        }
+        // }
+        loadData();
+    })
+    //获取Cookie
+    function getCK(name) {
+        var cks1=document.cookie;
+        var arrc1=cks1.split(";");
+        for(i=0;i<arrc1.length;i++){
+            var ck1=arrc1[i];
+            var arrc2=ck1.split("=");
+            if(arrc2[0]==name){
+                return arrc2[1];
+            }
+        }
+        return "";
+    }
+
+    function loadData() {
+        $.get("http://localhost:8081/users.do",null,function (arr) {
+            console.log("数组："+arr)
+            // app4.todos=arr;
+        })
+
+    }
+    function loginout() {
+        $.ajax({
+            url:"http://localhost:8081/loginout.do",
+            method:"get",
+            xhrFields: {withCredentials: true},
+            success:function (obj) {
+                alert("注销成功");
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

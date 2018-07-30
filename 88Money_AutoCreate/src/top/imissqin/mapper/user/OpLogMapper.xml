@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.imissqin.mapper.user.OpLogMapper">
+  <resultMap id="BaseResultMap" type="top.imissqin.domain.user.OpLog">
+    <id column="oplog_id" jdbcType="INTEGER" property="oplogId" />
+    <result column="oplog_createtime" jdbcType="TIMESTAMP" property="oplogCreatetime" />
+    <result column="oplog_type" jdbcType="INTEGER" property="oplogType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="top.imissqin.domain.user.OpLog">
+    <result column="oplog_msg" jdbcType="LONGVARCHAR" property="oplogMsg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    oplog_id, oplog_createtime, oplog_type
+  </sql>
+  <sql id="Blob_Column_List">
+    oplog_msg
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="top.imissqin.domain.user.OpLogExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_oplog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="top.imissqin.domain.user.OpLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_oplog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_oplog
+    where oplog_id = #{oplogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_oplog
+    where oplog_id = #{oplogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.imissqin.domain.user.OpLogExample">
+    delete from t_oplog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.imissqin.domain.user.OpLog">
+    insert into t_oplog (oplog_id, oplog_createtime, oplog_type, 
+      oplog_msg)
+    values (#{oplogId,jdbcType=INTEGER}, #{oplogCreatetime,jdbcType=TIMESTAMP}, #{oplogType,jdbcType=INTEGER}, 
+      #{oplogMsg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="top.imissqin.domain.user.OpLog">
+    insert into t_oplog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oplogId != null">
+        oplog_id,
+      </if>
+      <if test="oplogCreatetime != null">
+        oplog_createtime,
+      </if>
+      <if test="oplogType != null">
+        oplog_type,
+      </if>
+      <if test="oplogMsg != null">
+        oplog_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oplogId != null">
+        #{oplogId,jdbcType=INTEGER},
+      </if>
+      <if test="oplogCreatetime != null">
+        #{oplogCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oplogType != null">
+        #{oplogType,jdbcType=INTEGER},
+      </if>
+      <if test="oplogMsg != null">
+        #{oplogMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.imissqin.domain.user.OpLogExample" resultType="java.lang.Long">
+    select count(*) from t_oplog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_oplog
+    <set>
+      <if test="record.oplogId != null">
+        oplog_id = #{record.oplogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.oplogCreatetime != null">
+        oplog_createtime = #{record.oplogCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oplogType != null">
+        oplog_type = #{record.oplogType,jdbcType=INTEGER},
+      </if>
+      <if test="record.oplogMsg != null">
+        oplog_msg = #{record.oplogMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_oplog
+    set oplog_id = #{record.oplogId,jdbcType=INTEGER},
+      oplog_createtime = #{record.oplogCreatetime,jdbcType=TIMESTAMP},
+      oplog_type = #{record.oplogType,jdbcType=INTEGER},
+      oplog_msg = #{record.oplogMsg,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_oplog
+    set oplog_id = #{record.oplogId,jdbcType=INTEGER},
+      oplog_createtime = #{record.oplogCreatetime,jdbcType=TIMESTAMP},
+      oplog_type = #{record.oplogType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.imissqin.domain.user.OpLog">
+    update t_oplog
+    <set>
+      <if test="oplogCreatetime != null">
+        oplog_createtime = #{oplogCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oplogType != null">
+        oplog_type = #{oplogType,jdbcType=INTEGER},
+      </if>
+      <if test="oplogMsg != null">
+        oplog_msg = #{oplogMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where oplog_id = #{oplogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="top.imissqin.domain.user.OpLog">
+    update t_oplog
+    set oplog_createtime = #{oplogCreatetime,jdbcType=TIMESTAMP},
+      oplog_type = #{oplogType,jdbcType=INTEGER},
+      oplog_msg = #{oplogMsg,jdbcType=LONGVARCHAR}
+    where oplog_id = #{oplogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.imissqin.domain.user.OpLog">
+    update t_oplog
+    set oplog_createtime = #{oplogCreatetime,jdbcType=TIMESTAMP},
+      oplog_type = #{oplogType,jdbcType=INTEGER}
+    where oplog_id = #{oplogId,jdbcType=INTEGER}
+  </update>
+</mapper>

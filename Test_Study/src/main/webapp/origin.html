@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域请求</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<a href="http://localhost:7071/data">I am is A titlt</a>
+<br/>
+<form action="http://localhost:7071/data">
+    <input type="submit" value="form表单来跨域了">
+</form>
+<br/>
+
+<button onclick="getW()">get Weather !!!</button>
+<p id="p1" style="font-size: 40px; color: chartreuse"></p>
+
+<div id="dv1">
+    <h2 onclick="getW()">{{msg}}</h2>
+</div>
+
+<script type="application/javascript">
+    var app = new Vue({
+        el:"#dv1",
+        data:{
+            msg:"the weather is ******"
+        }
+    })
+
+    function getW() {
+        $.get("http://localhost:7071/data", null, function (obj) {
+            $("#p1").html(obj.status);
+            app.msg=obj.id + "-最低温度：" + obj.minT + "-嘴干温度："+ obj.maxT + "-建议：" + obj.status
+        })
+    }
+</script>
+
+</body>
+</html>

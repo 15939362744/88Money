@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.imissqin.mapper.user.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="top.imissqin.domain.user.LoginLog">
+    <id column="lolog_id" jdbcType="INTEGER" property="lologId" />
+    <result column="lolog_ip" jdbcType="VARCHAR" property="lologIp" />
+    <result column="lolog_createtime" jdbcType="TIMESTAMP" property="lologCreatetime" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="top.imissqin.domain.user.LoginLog">
+    <result column="lolog_msg" jdbcType="LONGVARCHAR" property="lologMsg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    lolog_id, lolog_ip, lolog_createtime, uid
+  </sql>
+  <sql id="Blob_Column_List">
+    lolog_msg
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="top.imissqin.domain.user.LoginLogExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_loginlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="top.imissqin.domain.user.LoginLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_loginlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_loginlog
+    where lolog_id = #{lologId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_loginlog
+    where lolog_id = #{lologId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.imissqin.domain.user.LoginLogExample">
+    delete from t_loginlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.imissqin.domain.user.LoginLog">
+    insert into t_loginlog (lolog_id, lolog_ip, lolog_createtime, 
+      uid, lolog_msg)
+    values (#{lologId,jdbcType=INTEGER}, #{lologIp,jdbcType=VARCHAR}, #{lologCreatetime,jdbcType=TIMESTAMP}, 
+      #{uid,jdbcType=INTEGER}, #{lologMsg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="top.imissqin.domain.user.LoginLog">
+    insert into t_loginlog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lologId != null">
+        lolog_id,
+      </if>
+      <if test="lologIp != null">
+        lolog_ip,
+      </if>
+      <if test="lologCreatetime != null">
+        lolog_createtime,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="lologMsg != null">
+        lolog_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lologId != null">
+        #{lologId,jdbcType=INTEGER},
+      </if>
+      <if test="lologIp != null">
+        #{lologIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lologCreatetime != null">
+        #{lologCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="lologMsg != null">
+        #{lologMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.imissqin.domain.user.LoginLogExample" resultType="java.lang.Long">
+    select count(*) from t_loginlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_loginlog
+    <set>
+      <if test="record.lologId != null">
+        lolog_id = #{record.lologId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lologIp != null">
+        lolog_ip = #{record.lologIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lologCreatetime != null">
+        lolog_createtime = #{record.lologCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lologMsg != null">
+        lolog_msg = #{record.lologMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_loginlog
+    set lolog_id = #{record.lologId,jdbcType=INTEGER},
+      lolog_ip = #{record.lologIp,jdbcType=VARCHAR},
+      lolog_createtime = #{record.lologCreatetime,jdbcType=TIMESTAMP},
+      uid = #{record.uid,jdbcType=INTEGER},
+      lolog_msg = #{record.lologMsg,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_loginlog
+    set lolog_id = #{record.lologId,jdbcType=INTEGER},
+      lolog_ip = #{record.lologIp,jdbcType=VARCHAR},
+      lolog_createtime = #{record.lologCreatetime,jdbcType=TIMESTAMP},
+      uid = #{record.uid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.imissqin.domain.user.LoginLog">
+    update t_loginlog
+    <set>
+      <if test="lologIp != null">
+        lolog_ip = #{lologIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lologCreatetime != null">
+        lolog_createtime = #{lologCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="lologMsg != null">
+        lolog_msg = #{lologMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where lolog_id = #{lologId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="top.imissqin.domain.user.LoginLog">
+    update t_loginlog
+    set lolog_ip = #{lologIp,jdbcType=VARCHAR},
+      lolog_createtime = #{lologCreatetime,jdbcType=TIMESTAMP},
+      uid = #{uid,jdbcType=INTEGER},
+      lolog_msg = #{lologMsg,jdbcType=LONGVARCHAR}
+    where lolog_id = #{lologId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.imissqin.domain.user.LoginLog">
+    update t_loginlog
+    set lolog_ip = #{lologIp,jdbcType=VARCHAR},
+      lolog_createtime = #{lologCreatetime,jdbcType=TIMESTAMP},
+      uid = #{uid,jdbcType=INTEGER}
+    where lolog_id = #{lologId,jdbcType=INTEGER}
+  </update>
+</mapper>

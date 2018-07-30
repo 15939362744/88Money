@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/88Money_Provider" />
+    <file type="web" url="file://$PROJECT_DIR$/88Money_Service" />
+    <file type="web" url="file://$PROJECT_DIR$/88Money_SSOController" />
+    <file type="web" url="file://$PROJECT_DIR$/88Money_SSOServiceProvider" />
+    <file type="web" url="file://$PROJECT_DIR$/88Money_UIController" />
+    <file type="web" url="file://$PROJECT_DIR$/88Money_UIWeb" />
+    <file type="web" url="file://$PROJECT_DIR$/Test_Study" />
+    <file type="web" url="file://$PROJECT_DIR$/Test_Sys1" />
+    <file type="web" url="file://$PROJECT_DIR$/Test_Sys2" />
+  </component>
+  <component name="Kotlin2JsCompilerArguments">
+    <option name="sourceMapEmbedSources" />
+    <option name="sourceMapPrefix" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
